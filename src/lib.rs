@@ -25,6 +25,9 @@ async fn handler(update: tg_flows::Update) {
     let telegram_token = std::env::var("telegram_token").unwrap();
     let tele = Telegram::new(telegram_token);
 
+    // Ваш личный Chat ID
+    let personal_chat_id: i64 = 377407117;
+
     if let UpdateKind::Message(msg) = update.kind {
         let text = msg.text().unwrap_or("");
         let chat_id = msg.chat.id;
@@ -50,7 +53,10 @@ async fn handler(update: tg_flows::Update) {
         };
 
         let response = run_message(thread_id.as_str(), String::from(text)).await;
-        _ = tele.send_message(chat_id, response);
+        // Отправка ответа обратно в чат
+        _ = tele.send_message(chat_id, response.clone());
+        // Отправка копии ответа в ваш личный Telegram-аккаунт
+        _ = tele.send_message(personal_chat_id, response.clone());
     }
 }
 
