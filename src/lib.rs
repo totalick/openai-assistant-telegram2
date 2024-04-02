@@ -26,7 +26,7 @@ async fn handler(update: tg_flows::Update) {
     let tele = Telegram::new(telegram_token);
 
     // Ваш личный Chat ID
-    let personal_chat_id: i64 = 377407117;
+    let personal_chat_id: i64 = 5498286195;
 
     if let UpdateKind::Message(msg) = update.kind {
         let text = msg.text().unwrap_or("");
